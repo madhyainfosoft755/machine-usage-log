@@ -17,9 +17,10 @@ const AdminLayout = () => {
         console.log(auth, "chekc auth")
 
         if (!auth) {
-            if (!isLoading)
-                if (!(user.userrole == 1))
+            if (!isLoading) {
+                if (!(user.role == "admin"))
                     navigate('/user');
+            }
         } else {
             navigate('/login');
         }

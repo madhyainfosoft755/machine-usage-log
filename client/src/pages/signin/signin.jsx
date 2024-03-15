@@ -31,9 +31,9 @@ const SignIn = () => {
         if (isAuthenticated) {
             if (!isLoading) {
                 if (user.userrole == 1)
-                    navigate('/admin');
+                    navigate('/admin/dashboard');
                 if (user.userrole == 2)
-                    navigate('/admin');
+                    navigate('/admin/dashboard');
                 if (user.userrole == 3)
                     navigate('/user');
             }

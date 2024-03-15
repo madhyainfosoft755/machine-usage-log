@@ -24,11 +24,11 @@ const Employees = () => {
         const formdata = new FormData();
         console.log(userForm, "user form tehat");
         if (userForm) {
-            formdata.append("firstName", userForm.firstName);
-            formdata.append("lastName", userForm.lastName);
-            formdata.append("email", userForm.email);
-            formdata.append("contact", userForm.contact);
-            formdata.append("department", userForm.department);
+            formdata.append("user_name", userForm.firstName + " " + userForm.lastName);
+            formdata.append("user_email", userForm.email);
+            formdata.append("user_password", userForm.password);
+            formdata.append("user_contact", userForm.contact);
+            // formdata.append("department", userForm.department);
             const addedinst = await addUser(formdata);
             setStatus(addedinst.status);
         }
@@ -37,12 +37,12 @@ const Employees = () => {
     const handleUpdate = async () => {
         const formdata = new FormData();
         if (userForm) {
-            formdata.append("firstName", userForm.firstName);
-            formdata.append("lastName", userForm.lastName);
-            formdata.append("email", userForm.email);
-            formdata.append("contact", userForm.contact);
-            formdata.append("department", userForm.department);
-            formdata.append("user_id", updateId);
+            formdata.append("user_name", userForm.firstName + " " + userForm.lastName);
+            formdata.append("user_email", userForm.email);
+            formdata.append("user_password", userForm.password);
+            formdata.append("user_contact", userForm.contact);
+            // formdata.append("department", userForm.department);
+            // formdata.append("user_id", updateId);
             const addedinst = await addUser(formdata);
             setStatus(addedinst.status);
         }

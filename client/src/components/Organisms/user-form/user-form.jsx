@@ -55,18 +55,18 @@ const UserForm = ({ userForm, handleInput, setStatus, status, updateId, handleAd
 
                 </div>
                 {/* Third Input Pair */}
-                <div className='flex md:p-3 justify-center md:justify-normal'>
-                    <div className="w-full p-2">
+                <div className='flex md:p-3 justify-around md:justify-around'>
+                    <div className="flex flex-col">
                         <div className="mb-2 block">
-                            <Label htmlFor="department" value="Select your department" />
+                            <Label htmlFor="password" />
                         </div>
-                        <Select id="department" name='department' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {department && department.map((value, index) => {
-
-                                return <option key={index}>{value.department_name}</option>;
-                            })}
-                        </Select>
+                        <TextInput id="password" name='password' placeholder="Password" value={userForm && userForm.password} onChange={handleInput} required />
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="mb-2 block">
+                            <Label htmlFor="confpassword" />
+                        </div>
+                        <TextInput id="confpassword" name='confpassword' placeholder="Confirm Password" value={userForm && userForm.confpassword} onChange={handleInput} required />
                     </div>
                 </div>
             </div>

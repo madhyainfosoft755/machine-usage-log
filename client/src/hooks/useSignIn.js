@@ -13,41 +13,37 @@ const useLogin = () => {
   const loginUser = async (email, password) => {
     setLoading(true);
     const formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("password", password);
+    formdata.append("user_email", email);
+    formdata.append("user_password", password);
 
     try {
-      const response = await axios.post(`${API_URL}/login`,formdata);
+      const response = await axios.post(`${API_URL}/Userlogin`,formdata);
 
       // Assuming the API returns a success message and user data
       console.log('Login successful:', response.data);
       // Assuming the API returns a success message and user data
-      if (response.data.status) {
-        const username = response.data.name;
-        const userrole = response.data.role;
-        const userid = response.data.uid;
-        const useremail = response.data.email;
+      if (response.data.status == "success") {
+        const user = response.data.user;
+        const token = response.data.token;
+        const userrole = response.data.user.role;
+        console.log("is logged in ", userrole)
+
         
-        const user = {
-          username,
-          userrole,
-          userid,
-          useremail
-        }
 
         // Save user data in localStorage
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('accessToken', token);
         dispatch({ type: "LOGIN", payload: user });
 
         // Reset error state after successful login
         setError('');
 
-        if (user.userrole == "1")
+        if (userrole == "admin")
             navigate('/admin');
-        if (user.userrole == "2")
+        if (userrole == "admin")
             navigate('/admin');
-        if (user.userrole == "3")
-            navigate('/user');
+        if (userrole == "user")
+            navigate('/admin');
         
       } else {
         setError('Invalid Credentials');
