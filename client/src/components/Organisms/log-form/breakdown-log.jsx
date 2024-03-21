@@ -4,6 +4,10 @@ import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { getDepartments, getEmployees, getMachines } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
+
+function formatNumberWithLeadingZeros(number, length) {
+    return String(number).padStart(length, '0');
+}
 const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate }) => {
     const [department, setDepartment] = useState(null);
     const currentDate = new Date();
@@ -12,6 +16,8 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
+    const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
+
     const [user, setUsers] = useState(null);
 
     useEffect(() => {
@@ -31,8 +37,8 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
         <div className="space-y-6">
 
             <div className='flex flex-wrap justify-between'>
-                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-00</h3>
-                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: LOG 3</h2>
+                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-{formatNumberWithLeadingZeros(2, 4)}</h3>
+                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: {formatNumberWithLeadingZeros(2, 4)}</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white">LOCATION: BHOPAL</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
@@ -60,7 +66,20 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                         </Select>
                     </div>
                 </div>
+                <div class="mb-6 p-3">
+                    <div className="w-full">
+                        <div className="mb-2 block">
+                            <Label htmlFor="area" value="Area" />
+                        </div>
+                        <Select id="area" name='area' required onChange={handleInput}>
+                            {/* <option value={0}>select</option> */}
+                            {area && area.map((value, index) => {
 
+                                return <option key={index}>{value}</option>;
+                            })}
+                        </Select>
+                    </div>
+                </div>
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -76,7 +95,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                     </div>
                 </div>
 
-
+                {/* 
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -85,8 +104,8 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                         <TextInput name='product' placeholder='Product' onChange={handleInput} />
 
                     </div>
-                </div>
-                <div class="mb-6 p-3">
+                </div> */}
+                {/* <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
                             <Label htmlFor="batch" value="Select Batch" />
@@ -94,7 +113,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                         <TextInput name='batch' placeholder='Batch Number' onChange={handleInput} />
 
                     </div>
-                </div>
+                </div> */}
                 <div className="w-full"></div>
                 <div className='p-3'>
                     <h3 className='mb-3'>Breakdown</h3>
@@ -113,15 +132,9 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                 <div class="mb-6 p-3 mt-8">
                     <div className="w-full">
                         <div className="mb-2 block">
-                            <Label htmlFor="done_by" value="Done By" />
+                            <Label htmlFor="done_by" value="Reported By" />
                         </div>
-                        <Select id="done_by" name='done_by' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {user && user.map((value, index) => {
-
-                                return <option key={index}>{value.user_name}</option>;
-                            })}
-                        </Select>
+                        <TextInput name='done_by' placeholder='Done By' onChange={handleInput} />
                     </div>
                 </div>
 

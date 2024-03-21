@@ -4,7 +4,12 @@ import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { getDepartments, getEmployees, getMachines } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
-const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate }) => {
+
+function formatNumberWithLeadingZeros(number, length) {
+    return String(number).padStart(length, '0');
+}
+
+const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate, logID }) => {
     const [department, setDepartment] = useState(null);
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -12,9 +17,11 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
+    const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
     const [user, setUsers] = useState(null);
 
     useEffect(() => {
+
         async function FetchApi() {
             const result = await getMachines();
             setMachines(result.data);
@@ -31,8 +38,8 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
         <div className="space-y-6">
 
             <div className='flex flex-wrap justify-between'>
-                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-00</h3>
-                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: LOG 3</h2>
+                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-{formatNumberWithLeadingZeros(logID, 4)}</h3>
+                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: {formatNumberWithLeadingZeros(logID, 4)}</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white">LOCATION: BHOPAL</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
@@ -56,6 +63,21 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                             {shift && shift.map((value, index) => {
 
                                 return <option key={index}>{value.shift}</option>;
+                            })}
+                        </Select>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-3">
+                    <div className="w-full">
+                        <div className="mb-2 block">
+                            <Label htmlFor="area" value="Area" />
+                        </div>
+                        <Select id="area" name='area' required onChange={handleInput}>
+                            {/* <option value={0}>select</option> */}
+                            {area && area.map((value, index) => {
+
+                                return <option key={index}>{value}</option>;
                             })}
                         </Select>
                     </div>

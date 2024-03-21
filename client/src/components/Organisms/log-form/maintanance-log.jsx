@@ -9,11 +9,15 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
+    const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
     const [user, setUsers] = useState(null);
 
+    function formatNumberWithLeadingZeros(number, length) {
+        return String(number).padStart(length, '0');
+    }
     useEffect(() => {
         async function FetchApi() {
             const result = await getMachines();
@@ -31,8 +35,8 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
         <div className="space-y-6">
 
             <div className='flex flex-wrap justify-between'>
-                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-00</h3>
-                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: LOG 3</h2>
+                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-{formatNumberWithLeadingZeros(2, 4)}</h3>
+                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER:{formatNumberWithLeadingZeros(2, 4)}</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white">LOCATION: BHOPAL</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
@@ -60,7 +64,20 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                         </Select>
                     </div>
                 </div>
+                <div class="mb-6 p-3">
+                    <div className="w-full">
+                        <div className="mb-2 block">
+                            <Label htmlFor="area" value="Area" />
+                        </div>
+                        <Select id="area" name='area' required onChange={handleInput}>
+                            {/* <option value={0}>select</option> */}
+                            {area && area.map((value, index) => {
 
+                                return <option key={index}>{value}</option>;
+                            })}
+                        </Select>
+                    </div>
+                </div>
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -77,7 +94,7 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                 </div>
 
 
-                <div class="mb-6 p-3">
+                {/* <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
                             <Label htmlFor="product" value="Select Product" />
@@ -94,7 +111,7 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                         <TextInput name='batch' placeholder='Batch Number' onChange={handleInput} />
 
                     </div>
-                </div>
+                </div> */}
                 <div className="w-full"></div>
                 <div className='p-3'>
                     <h3 className='mb-3'>Maintenance</h3>
@@ -113,15 +130,10 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                 <div class="mb-6 p-3 mt-8">
                     <div className="w-full">
                         <div className="mb-2 block">
-                            <Label htmlFor="done_by" value="Done By" />
+                            <Label htmlFor="done_by" value="Reported By" />
                         </div>
-                        <Select id="done_by" name='done_by' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {user && user.map((value, index) => {
+                        <TextInput name='done_by' placeholder='Done By' onChange={handleInput} />
 
-                                return <option key={index}>{value.user_name}</option>;
-                            })}
-                        </Select>
                     </div>
                 </div>
 

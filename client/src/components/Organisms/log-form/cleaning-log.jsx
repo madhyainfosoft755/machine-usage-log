@@ -4,6 +4,9 @@ import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { getDepartments, getEmployees, getMachines } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
+function formatNumberWithLeadingZeros(number, length) {
+    return String(number).padStart(length, '0');
+}
 const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate }) => {
     const [department, setDepartment] = useState(null);
     const currentDate = new Date();
@@ -12,6 +15,9 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
+    const [cleaningtype, setCleaningType] = useState([{ shift: 'A' }, { shift: 'B' }]);
+    const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
+
     const [user, setUsers] = useState(null);
 
     useEffect(() => {
@@ -31,8 +37,8 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
         <div className="space-y-6">
 
             <div className='flex flex-wrap justify-between'>
-                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-00</h3>
-                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: LOG 3</h2>
+                <h3 className="text-xl font-medium text-gray-700 dark:text-white">FORMAT NO: QA/035-F01-{formatNumberWithLeadingZeros(2, 4)}</h3>
+                <h2 className="text-xl font-medium text-gray-700 dark:text-white">ID NUMBER: {formatNumberWithLeadingZeros(2, 4)}</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white">LOCATION: BHOPAL</h2>
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
@@ -60,7 +66,20 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                         </Select>
                     </div>
                 </div>
+                <div class="mb-6 p-3">
+                    <div className="w-full">
+                        <div className="mb-2 block">
+                            <Label htmlFor="area" value="Area" />
+                        </div>
+                        <Select id="area" name='area' required onChange={handleInput}>
+                            {/* <option value={0}>select</option> */}
+                            {area && area.map((value, index) => {
 
+                                return <option key={index}>{value}</option>;
+                            })}
+                        </Select>
+                    </div>
+                </div>
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -95,11 +114,27 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
 
                     </div>
                 </div>
+
+                {/* <div class="mb-6 p-3">
+
+                </div> */}
                 <div className="w-full"></div>
                 <div className='p-3'>
                     <h3 className='mb-3'>Cleaning</h3>
 
                     <div className='flex flex-wrap justify-between'>
+                        <div className='p-1'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="cl_type" value="Cleaning Type" />
+                            </div>
+                            <Select id="cl_type" name='cl_type' required onChange={handleInput}>
+                                {/* <option value={0}>select</option> */}
+                                {cleaningtype && cleaningtype.map((value, index) => {
+
+                                    return <option key={index}>{value.shift}</option>;
+                                })}
+                            </Select>
+                        </div>
                         <div class="mb-6 p-2">
                             <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
                             <input type="time" id="start_time" name='cl_st_time' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required onChange={handleInput} />

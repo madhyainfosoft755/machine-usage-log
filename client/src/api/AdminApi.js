@@ -427,7 +427,7 @@ export const getAllLogs = async (pageValue) => {
 	try {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
-		const result = await axios.get(`${API_URL}/fetchAllMachine_logsUser_Data`, {
+		const result = await axios.get(`${API_URL}/fetchAllUsage_logsData`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
@@ -454,7 +454,7 @@ export const addLog = async (data) => {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
 
-		result = await axios.post(`${API_URL}/Machine_logsInsert`, JSON.stringify(data), {
+		result = await axios.post(`${API_URL}/Usage_logsInsert`, JSON.stringify(data), {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
@@ -479,7 +479,33 @@ export const getUserlogs = async (pageValue) => {
 	try {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
-		const result = await axios.get(`${API_URL}/fetchAllUserData`, {
+		const result = await axios.get(`${API_URL}/fetchAllUsage_logsData/1/4`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
+
+export const getlogID = async (pageValue) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetchNew_Usage_logsData`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
