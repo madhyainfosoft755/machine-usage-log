@@ -4,7 +4,8 @@
 import { Sidebar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from 'react-icons/hi';
-import { FaPowerOff, FaSignOutAlt } from "react-icons/fa";
+import { FaPowerOff, FaSignOutAlt, FaPlus } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
 import useLogin from '../../../hooks/useSignIn';
 import { Link, useLocation } from 'react-router-dom';
 function SidebarComponent() {
@@ -62,11 +63,11 @@ function SidebarComponent() {
                         Reports
                     </Sidebar.Item> */}
                     <Link to={"add-log"} >
-                        <Sidebar.Item icon={HiUser}>
+                        <Sidebar.Item icon={FaPlus}>
                             Add Log
                         </Sidebar.Item>
                     </Link>
-                    <Sidebar.Item href="#" icon={HiUser}>
+                    <Sidebar.Item href="#" icon={IoIosSettings}>
                         Settings
                     </Sidebar.Item>
                     <Sidebar.Item onClick={() => { logOut() }} icon={FaSignOutAlt}>
