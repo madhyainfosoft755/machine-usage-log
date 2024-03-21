@@ -23,20 +23,17 @@ const SignIn = () => {
 
     useEffect(() => {
         console.log(user, "is user")
-        console.log(isAuthenticated, "is authenteicated")
+        console.log(isAuthenticated, "is authenticated")
         console.log(isLoading, "is laoding")
         const auth = user ? isAuthenticated : !isLoading;
         console.log(auth, "chekc auth")
 
         if (isAuthenticated) {
-            if (!isLoading) {
-                if (user.userrole == 1)
-                    navigate('/admin/dashboard');
-                if (user.userrole == 2)
-                    navigate('/admin/dashboard');
-                if (user.userrole == 3)
-                    navigate('/user');
-            }
+            if (user.role == 'admin')
+                navigate('/admin/dashboard');
+            if (user.role == 'user')
+                navigate('/user/dashboard');
+
         }
     }, [isLoading]);
 
@@ -47,11 +44,11 @@ const SignIn = () => {
     return <>
         <div className="flex flex-wrap justify-around items-center bg-[#f7fafb] p-5 h-screen">
             <div className="image-box max-w-md">
-                <img classNameName="h-auto" src={loginImage} alt="image description" />
+                <img className="h-auto" src={loginImage} alt="image description" />
 
             </div>
             <div className="signin-box min-w-52 sm:min-w-[400px]">
-                <div class="mb-4">
+                <div className="mb-4">
                     <h3 className="text-3xl">Sign In</h3>
                 </div>
                 <form className="max-w-md mx-auto" onSubmit={handleLogin}>
