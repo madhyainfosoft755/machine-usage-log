@@ -52,7 +52,7 @@ const TasksTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action }) 
 
             </table>
             <div className="flex overflow-x-auto sm:justify-center mb-3">
-                <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} />
+                {/* <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} /> */}
 
             </div>
         </div>
