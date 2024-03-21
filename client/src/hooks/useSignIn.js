@@ -39,11 +39,9 @@ const useLogin = () => {
         setError('');
 
         if (userrole == "admin")
-            navigate('/admin');
-        if (userrole == "admin")
-            navigate('/admin');
+            navigate('/admin/dashboard');
         if (userrole == "user")
-            navigate('/admin');
+            navigate('/user/dashboard');
         
       } else {
         setError('Invalid Credentials');
