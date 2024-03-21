@@ -159,12 +159,12 @@ export const addUser = async (data) => {
 	}
 };
 
-export const updateUser = async (data) => {
+export const updateUser = async (data, id) => {
 	let result = {};
 
 	try {
 		// const headers = getAuthToken();
-		result = await axios.post(`${API_URL}/updateEmployee`, data);
+		result = await axios.post(`${API_URL}/UserUpdate/${id}`, data);
 
 		console.log(result);
 

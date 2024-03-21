@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TasksTable from "../../components/Organisms/task-table"
-import { addInstitute, addUser, getEmployees, getInstitutes, updateInstitute } from "../../api/AdminApi";
+import { addInstitute, addUser, getEmployees, getInstitutes, updateInstitute, updateUser } from "../../api/AdminApi";
 import { Button } from 'flowbite-react';
 import { Modal } from 'flowbite-react';
 import InstituteForm from "../../components/Organisms/institute-form/institute-form";
@@ -14,6 +14,7 @@ const Employees = () => {
     const [instituteName, setInstituteName] = useState(null);
     const [status, setStatus] = useState(null);
     const [updateId, setUpdateId] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [userForm, setUserForm] = useState(null);
 
     const columns = ['USER NAME', 'CONTACT', 'EMAIL', 'DEPARTMENT', 'ACTION'];
@@ -31,6 +32,7 @@ const Employees = () => {
             // formdata.append("department", userForm.department);
             const addedinst = await addUser(formdata);
             setStatus(addedinst.status);
+            setUserForm(null)
         }
     }
 
@@ -43,7 +45,7 @@ const Employees = () => {
             formdata.append("user_contact", userForm.contact);
             // formdata.append("department", userForm.department);
             // formdata.append("user_id", updateId);
-            const addedinst = await addUser(formdata);
+            const addedinst = await updateUser(formdata, updateId);
             setStatus(addedinst.status);
         }
     }
@@ -65,12 +67,12 @@ const Employees = () => {
         <div className="w-screen p-3">
             <Button onClick={() => { setOpenModal(true); setStatus(null) }} className="mb-3" size={"xs"} >Add User</Button>
 
-            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} /> : <h3> Loading... </h3>}
+            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} action={"user_id"} nameA={"user_name"} setCurrentUser={setCurrentUser} /> : <h3> Loading... </h3>}
 
-            <Modal show={openModal} size="lg" onClose={() => setOpenModal(false)}>
-                <Modal.Header>{updateId ? "UPDATE USER" : "ADD USER"}</Modal.Header>
+            <Modal show={openModal} size="lg" onClose={() => { setOpenModal(false); setUpdateId(null); setCurrentUser(null); }}>
+                <Modal.Header>{updateId ? "UPDATE USER" : "ADD USER"} {currentUser && "(" + currentUser + ")"}</Modal.Header>
                 <Modal.Body>
-                    <UserForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
+                    <UserForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} setCurrentUser={setCurrentUser} />
                 </Modal.Body>
             </Modal>
 

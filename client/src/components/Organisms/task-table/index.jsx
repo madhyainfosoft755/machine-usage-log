@@ -9,7 +9,7 @@ const columns = ['id', 'name', 'age', 'country', "action"];
 import { Pagination } from 'flowbite-react';
 import { useState } from 'react';
 
-const TasksTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action }) => {
+const TasksTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action, setCurrentUser, nameA }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -37,7 +37,7 @@ const TasksTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action }) 
                             })}
 
                             <td class="px-6 py-4">
-                                <a onClick={() => { setOpenModal(true); setUpdateId(value[action]); }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a onClick={() => { setOpenModal(true); setUpdateId(value[action]); setCurrentUser(value[nameA]); }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                         </tr>
                     })}
