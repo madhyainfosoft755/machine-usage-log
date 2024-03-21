@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import DashboardCard from "../../components/Atoms/dashboard-card"
 import { getDepartments, getEmployees, getMachines } from "../../api/AdminApi";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
     const [userNum, setUserNum] = useState(0);
@@ -35,9 +36,17 @@ const Dashboard = () => {
     }, []);
     return <>
         <div className="flex flex-wrap justify-around w-full">
-            <DashboardCard title={'OPERATORS'} value={userNum} />
-            <DashboardCard title={'MACHINES'} value={machineNum} />
-            <DashboardCard title={'DEPARTMENT'} value={departmentNum} />
+            <Link to="/admin/users">
+                <DashboardCard title={'OPERATORS'} value={userNum} />
+            </Link>
+            <Link to="/admin/machines">
+                <DashboardCard title={'MACHINES'} value={machineNum} />
+            </Link>
+            <Link to="/admin/departments">
+                <DashboardCard title={'DEPARTMENT'} value={departmentNum} />
+            </Link>
+
+
         </div>
     </>
 }
