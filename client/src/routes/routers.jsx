@@ -29,7 +29,7 @@ export const router = createBrowserRouter(
                 <Route path='users' element={<Employees />} />
                 <Route path='departments' element={<Department />} />
                 <Route path='machines' element={<Designation />} />
-                <Route path='shifts' element={<Shifts />} />
+                {/* <Route path='shifts' element={<Shifts />} /> */}
                 <Route path='assign' element={<CreateTask />} />
                 <Route path='todo' element={<ToDo />} />
                 <Route path='machine-logs' element={<ManageTask />} />
