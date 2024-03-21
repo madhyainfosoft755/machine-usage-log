@@ -37,19 +37,21 @@ function SidebarComponent() {
                             </svg>
                         </button>
                     </Sidebar.Item>
-                    <Sidebar.Item href="/admin/dashboard" icon={HiChartPie}>
-                        Dashboard
-                    </Sidebar.Item>
+                    <Link to={"dashboard"} >
+                        <Sidebar.Item icon={HiChartPie}>
+                            Dashboard
+                        </Sidebar.Item>
+                    </Link>
                     {/* <Sidebar.Item href="/admin/todo" icon={HiInbox}>
 
                     </Sidebar.Item> */}
-                    <Sidebar.Collapse icon={HiTable} label="ADD">
+                    <Sidebar.Collapse icon={HiTable} label="Add">
                         <Link to="users"> <Sidebar.Item >Users</Sidebar.Item></Link>
                         <Link to="departments"> <Sidebar.Item >Departments</Sidebar.Item></Link>
                         <Link to="machines"> <Sidebar.Item >Machines</Sidebar.Item></Link>
                         <Link to="shifts"> <Sidebar.Item >Shifts</Sidebar.Item></Link>
                     </Sidebar.Collapse>
-                    <Sidebar.Collapse icon={HiTable} label="MANAGE MACHIENES">
+                    <Sidebar.Collapse icon={HiTable} label="Manage Machines">
                         <Link to="assign">  <Sidebar.Item> Assign</Sidebar.Item></Link>
                         <Link to="machine-logs"> <Sidebar.Item>logs</Sidebar.Item></Link>
                     </Sidebar.Collapse>
