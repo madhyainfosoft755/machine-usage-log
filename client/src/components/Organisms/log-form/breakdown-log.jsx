@@ -2,7 +2,7 @@ import { Label, Modal, TextInput, Select, Datepicker, Textarea } from 'flowbite-
 import { Alert } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { getDepartments, getEmployees, getMachines } from '../../../api/AdminApi';
+import { getDepartments, getEmployees, getMachines, getShifts } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
 
 function formatNumberWithLeadingZeros(number, length) {
@@ -19,8 +19,8 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
     const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
 
     const [user, setUsers] = useState(null);
-
     useEffect(() => {
+
         async function FetchApi() {
             const result = await getMachines();
             setMachines(result.data);
@@ -29,8 +29,15 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
             const result = await getEmployees();
             setUsers(result.data);
         }
+
+        async function FetchShifts() {
+            const result = await getShifts();
+            setShift(result.data);
+        }
+
         FetchApi();
         FetchUsers();
+        FetchShifts();
 
     }, [])
     return <>
@@ -61,7 +68,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                             {/* <option value={0}>select</option> */}
                             {shift && shift.map((value, index) => {
 
-                                return <option key={index}>{value.shift}</option>;
+                                return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
                             })}
                         </Select>
                     </div>

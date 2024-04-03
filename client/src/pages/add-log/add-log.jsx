@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Tabs } from 'flowbite-react';
-import { HiAdjustments, HiClipboardList, HiUserCircle } from 'react-icons/hi';
-import { MdDashboard } from 'react-icons/md';
+import { HiClipboardList } from 'react-icons/hi';
 import LogForm from "../../components/Organisms/log-form/log-form";
 import { addLog, getlogID } from "../../api/AdminApi";
 // import MainTenanceLogForm from "../../components/Organisms/log-form/cleaning-log";
 import CleaningLogForm from "../../components/Organisms/log-form/cleaning-log";
 import MainTenanceLogForm from "../../components/Organisms/log-form/maintanance-log";
 import BreakDownLogForm from "../../components/Organisms/log-form/breakdown-log";
+import { GiHammerBreak } from "react-icons/gi";
+import { BiSpreadsheet } from "react-icons/bi";
+import { FaSoap } from "react-icons/fa";
 
 const AddLog = () => {
 
@@ -66,30 +68,31 @@ const AddLog = () => {
         }
         fetchApi();
     }, []);
+
     return <>
         <Tabs aria-label="Tabs with icons" style="underline" className="p-3">
-            <Tabs.Item active title="Usage Log" icon={HiClipboardList}>
+            <Tabs.Item title="Usage Log" icon={HiClipboardList}>
                 <div className="p-5 flex justify-center">
                     <div className="w-full p-10">
-                        <LogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} logID={logID} />
+                        <LogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} logID={parseInt(logID) + 1} />
                     </div>
                 </div>
             </Tabs.Item>
-            <Tabs.Item active title="Cleaning Log" icon={HiAdjustments}>
+            <Tabs.Item title="Cleaning Log" icon={FaSoap}>
                 <div className="p-5 flex justify-center">
                     <div className="w-full p-10">
                         <CleaningLogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
                     </div>
                 </div>
             </Tabs.Item>
-            <Tabs.Item active title="Maintenance" icon={HiClipboardList}>
+            <Tabs.Item title="Maintenance" icon={BiSpreadsheet}>
                 <div className="p-5 flex justify-center">
                     <div className="w-full p-10">
                         <MainTenanceLogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
                     </div>
                 </div>
             </Tabs.Item>
-            <Tabs.Item active title="Breakdown Log" icon={HiClipboardList}>
+            <Tabs.Item title="Breakdown Log" icon={GiHammerBreak}>
                 <div className="p-5 flex justify-center">
                     <div className="w-full p-10">
                         <BreakDownLogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />

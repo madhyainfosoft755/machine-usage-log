@@ -2,12 +2,12 @@ import { Label, Modal, TextInput, Select, Datepicker, Textarea } from 'flowbite-
 import { Alert } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { getDepartments, getEmployees, getMachines } from '../../../api/AdminApi';
+import { addCleaningLog, getDepartments, getEmployees, getMachines, getShifts } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
 function formatNumberWithLeadingZeros(number, length) {
     return String(number).padStart(length, '0');
 }
-const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate }) => {
+const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleUpdate, handleDate }) => {
     const [department, setDepartment] = useState(null);
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -20,7 +20,24 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
 
     const [user, setUsers] = useState(null);
 
+    const handleAdd = async () => {
+        // const formdata = new FormData();
+        console.log(userForm, "user form tehat");
+        if (userForm) {
+            // formdata.append("firstName", userForm.firstName);
+            // formdata.append("lastName", userForm.lastName);
+            // formdata.append("email", userForm.email);
+            // formdata.append("contact", userForm.contact);
+            // formdata.append("department", userForm.department);
+
+            const addedinst = await addCleaningLog(userForm);
+            console.log("cleaning log added");
+            setStatus(addedinst.status);
+        }
+    }
+
     useEffect(() => {
+
         async function FetchApi() {
             const result = await getMachines();
             setMachines(result.data);
@@ -29,8 +46,15 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
             const result = await getEmployees();
             setUsers(result.data);
         }
+
+        async function FetchShifts() {
+            const result = await getShifts();
+            setShift(result.data);
+        }
+
         FetchApi();
         FetchUsers();
+        FetchShifts();
 
     }, [])
     return <>
@@ -43,7 +67,23 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
             <form className='flex flex-wrap justify-between' onSubmit={handleAdd}>
+                <div class="mb-6 p-3">
+                    <div className="w-full">
+                        <div className="mb-2 block">
+                            <Label htmlFor="usagelog" value="Select your logs" />
+                        </div>
+                        <Select id="usagelog" name='log_id' required onChange={handleInput}>
+                            {/* <option value={0}>select</option> */}
+                            {/* {shift && shift.map((value, index) => {
 
+                                return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
+                            })} */}
+                            <option value={3}>log 1</option>
+                            <option value={4}>log 2</option>
+                            <option value={4}>log 3</option>
+                        </Select>
+                    </div>
+                </div>
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -61,7 +101,7 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                             {/* <option value={0}>select</option> */}
                             {shift && shift.map((value, index) => {
 
-                                return <option key={index}>{value.shift}</option>;
+                                return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
                             })}
                         </Select>
                     </div>
@@ -127,7 +167,7 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                             <div className="mb-2 block">
                                 <Label htmlFor="cl_type" value="Cleaning Type" />
                             </div>
-                            <Select id="cl_type" name='cl_type' required onChange={handleInput}>
+                            <Select id="cl_type" name='type' required onChange={handleInput}>
                                 {/* <option value={0}>select</option> */}
                                 {cleaningtype && cleaningtype.map((value, index) => {
 
