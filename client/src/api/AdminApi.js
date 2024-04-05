@@ -603,7 +603,32 @@ export const addCleaningLog = async (data) => {
 };
 
 
-//maintenance logs
+//maintenance logs'
+export const addMaintenanceLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Maintenance_logsInsert`, JSON.stringify(data), {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
 export const getMaintenanceLogs = async (pageValue) => {
 	let result = {};
 
@@ -631,6 +656,31 @@ export const getMaintenanceLogs = async (pageValue) => {
 
 
 //breakdown logs
+export const addBreakdownLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Breakdown_logsInsert`, JSON.stringify(data), {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
 export const getBreakDownLogs = async (pageValue) => {
 	let result = {};
 

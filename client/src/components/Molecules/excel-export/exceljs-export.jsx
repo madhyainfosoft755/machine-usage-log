@@ -31,7 +31,7 @@ function objectsToArrays(objects, keys, columns) {
 
     return arrays;
 }
-const ExcelExportJS = () => {
+const ExcelExportJS = ({ tableData, keysForTable, category, location, instrument, runningId, month }) => {
     const createOuterBorder = (worksheet, start = { row: 2, col: 2 }, end = { row: 1, col: 13 }, borderWidth = 'medium') => {
 
         const borderStyle = {
@@ -112,7 +112,9 @@ const ExcelExportJS = () => {
                 "operation_remark": "k"
             }
         ];
-        const arrays = objectsToArrays(data, keysofarray, cloumnsforexcel);
+        console.log("sended data", tableData);
+        console.log("excel keys", keysForTable);
+        const arrays = objectsToArrays(tableData, keysForTable, cloumnsforexcel);
 
         const formatRow = arrays.length + 2;
 
@@ -153,7 +155,22 @@ const ExcelExportJS = () => {
         worksheet.getRow(7).getCell(9).value = "ID NUMBER :";
         worksheet.getRow(8).getCell(3).value = "LOCATION :";
         worksheet.getRow(8).getCell(9).value = "MONTH / YEAR (MM/YY) :";
-        worksheet.getRow(10).getCell(8).value = "Operation";
+        if (category == 'op') {
+            worksheet.getRow(10).getCell(8).value = "Operation";
+
+        }
+        if (category == 'm') {
+            worksheet.getRow(10).getCell(8).value = "Maintenance";
+
+        }
+        if (category == 'cl') {
+            worksheet.getRow(10).getCell(8).value = "Cleaning";
+
+        }
+        if (category == 'break') {
+            worksheet.getRow(10).getCell(8).value = "Breakdown";
+        }
+
         worksheet.getRow(11).getCell(8).value = "Start Time";
         worksheet.getRow(11).getCell(9).value = "End Time";
         worksheet.getRow(formatRow).getCell(3).value = "QA/35-F01-00";

@@ -7,43 +7,22 @@ import DepartmentForm from "../../components/Organisms/department-form/departmen
 import LogForm from "../../components/Organisms/log-form/log-form";
 import ExcelExport from "../../components/Molecules/excel-export/excel-export";
 import ExcelExportJS from "../../components/Molecules/excel-export/exceljs-export";
+import LogTable from "../../components/Organisms/log-table/log-table";
 
 const ManageTask = () => {
 
-    const [rows, setRows] = useState([
-        {
-            "usage_data": "2024-03-22",
-            "shift": "10;00-12:00",
-            "product": "abc",
-            "batch": "1201",
-            "op_st_time": "2024-03-22 08:00:00",
-            "op_ed_time": "2024-03-22 10:00:00",
-            "operation_done_by": "Aman  Gupta",
-            "operation_check_by": "Utkasrh Dixit",
-            "operation_remark": "k"
-        },
-        {
-            "usage_data": "2024-03-22",
-            "shift": "10;00-12:00",
-            "product": "abc",
-            "batch": "1201",
-            "op_st_time": "2024-03-22 08:00:00",
-            "op_ed_time": "2024-03-22 10:00:00",
-            "operation_done_by": "Aman  Gupta",
-            "operation_check_by": "Utkasrh Dixit",
-            "operation_remark": "k"
-        }
-    ]);
+    const [rows, setRows] = useState();
     const [openModal, setOpenModal] = useState(false);
     const [instituteName, setInstituteName] = useState(null);
     const [status, setStatus] = useState(null);
     const [updateId, setUpdateId] = useState(null);
     const [userForm, setUserForm] = useState(null);
     const [combinedData, setCombinedData] = useState([]);
-    const [logtypes, setLogtypes] = useState([{ name: 'Usage' }, { name: 'Cleaning' }, { name: 'Maintenance' }, { name: 'Breakdown' }]);
+    const [logtypes, setLogtypes] = useState([{ name: 'Usage', value: "op" }, { name: 'Cleaning', value: "cl" }, { name: 'Maintenance', value: "m" }, { name: 'Breakdown', value: "break" }]);
 
-    const columns = ['DATE', 'LOCATION', 'FORMAT', 'SHIFT', 'MACNINE', 'BATCH', 'DONE BY', 'CHECK BY', 'ACTION'];
-    const keys = ['date', 'location', 'format', 'shift', 'machine', 'batch', 'done_by', 'check_by'];
+    const columns = ['DATE', 'LOCATION', 'FORMAT', 'SHIFT', 'MACNINE', 'BATCH', "START TIME", "END TIME", 'DONE BY', 'CHECK BY'];
+    const keys = ['date', 'location', 'format', 'shift', 'machine_name', 'batch', `${userForm && userForm.category}_st_time`, `${userForm && userForm.category}_ed_time`, 'done_by_name', 'check_by'];
+    const keysForTable = ['date', 'shift', 'machine_name', 'batch', `${userForm && userForm.category}_st_time`, `${userForm && userForm.category}_ed_time`, 'done_by_name', 'check_by', 'remarks'];
 
 
     const handleAdd = async () => {
@@ -83,18 +62,18 @@ const ManageTask = () => {
     useEffect(() => {
         async function FetchApi() {
             let logs;
-            if (userForm.category == 'Usage') {
+            if (userForm.category == 'op') {
                 logs = await getAllLogs();
             }
-            if (userForm.category == 'Maintenance') {
+            if (userForm.category == 'm') {
                 logs = await getMaintenanceLogs();
 
             }
-            if (userForm.category == 'Cleaning') {
+            if (userForm.category == 'cl') {
                 logs = await getCleaningLogs();
 
             }
-            if (userForm.category == 'Breakdown') {
+            if (userForm.category == 'break') {
                 logs = await getBreakDownLogs();
 
             }
@@ -112,7 +91,10 @@ const ManageTask = () => {
 
     return <>
         <div className="w-screen p-3">
-            {/* <Button onClick={() => { setOpenModal(true) }} className="mb-3" size={"xs"} > Add Machine Usage </Button> */}
+            <div className="flex">
+
+            </div>
+
             <div className="flex">
                 <div class="mb-6 p-3">
                     <div className="mb-2 block">
@@ -120,9 +102,11 @@ const ManageTask = () => {
                     </div>
                     <Select id="categor" name='category' required onChange={handleInput}>
                         {/* <option value={0}>select</option> */}
+                        <option value={0}>select</option>
+
                         {logtypes && logtypes.map((value, index) => {
 
-                            return <option key={index} value={value.name}>{value.name}</option>;
+                            return <option key={index} value={value.value}>{value.name}</option>;
                         })}
                     </Select>
 
@@ -136,26 +120,26 @@ const ManageTask = () => {
                         <option value={0}>select</option>
 
 
-                        <option key={1} value={1}>{"Open"}</option>
-                        <option key={2} value={2}>{"Close"}</option>
+                        <option key={1} value={1}>{"Checked"}</option>
+                        <option key={2} value={2}>{"Unchecked"}</option>
 
                     </Select>
 
                 </div>
 
-                {/* {rows && <div className="mt-11"> < ExcelExport data={rows} keys={keys} columns={columns} /></div>} */}
-                {rows && <div className="mt-11"> < ExcelExportJS rows={rows} /></div>}
+
+                {rows && <div className="mt-11"> < ExcelExportJS tableData={rows && rows} keysForTable={keysForTable} category={userForm.category} /></div>}
             </div>
 
 
-            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} /> : <h3> Loading... </h3>}
+            {rows ? <LogTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} /> : <h3> Loading... </h3>}
 
-            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)}>
+            {/* <Modal show={openModal} size="md" onClose={() => setOpenModal(false)}>
                 <Modal.Header >Add Log</Modal.Header>
                 <Modal.Body>
                     <LogForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
 
         </div>
     </>

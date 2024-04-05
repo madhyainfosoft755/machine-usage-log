@@ -2,11 +2,12 @@ import { Label, Modal, TextInput, Select, Datepicker, Textarea } from 'flowbite-
 import { Alert } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { getDepartments, getEmployees, getMachines, getShifts } from '../../../api/AdminApi';
+import { addMaintenanceLog, getDepartments, getEmployees, getMachines, getShifts } from '../../../api/AdminApi';
 import { HiInformationCircle } from 'react-icons/hi';
-const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd, handleUpdate, handleDate }) => {
+const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleUpdate, handleDate }) => {
     const [department, setDepartment] = useState(null);
     const currentDate = new Date();
+    userForm.date = currentDate;
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
     const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
@@ -18,6 +19,23 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
     function formatNumberWithLeadingZeros(number, length) {
         return String(number).padStart(length, '0');
     }
+
+    const handleAdd = async () => {
+        // const formdata = new FormData();
+        console.log(userForm, "user form tehat");
+        if (userForm) {
+            // formdata.append("firstName", userForm.firstName);
+            // formdata.append("lastName", userForm.lastName);
+            // formdata.append("email", userForm.email);
+            // formdata.append("contact", userForm.contact);
+            // formdata.append("department", userForm.department);
+
+            const addedinst = await addMaintenanceLog(userForm);
+            console.log("cleaning log added");
+            setStatus(addedinst.status);
+        }
+    }
+
     useEffect(() => {
 
         async function FetchApi() {
@@ -63,7 +81,7 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                         <div className="mb-2 block">
                             <Label htmlFor="shift" value="Select your Shift" />
                         </div>
-                        <Select id="shift" name='shift' required onChange={handleInput}>
+                        <Select id="shift" name='shift_id' required onChange={handleInput}>
                             {/* <option value={0}>select</option> */}
                             {shift && shift.map((value, index) => {
 
@@ -127,11 +145,11 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
                     <div className='flex flex-wrap justify-between'>
                         <div class="mb-6 p-2">
                             <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
-                            <input type="time" id="start_time" name='cl_st_time' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required onChange={handleInput} />
+                            <input type="time" id="start_time" name='m_st_time' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required onChange={handleInput} />
                         </div>
                         <div class="mb-6 p-2">
                             <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time</label>
-                            <input type="time" id="end_time" name='cl_ed_time' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required onChange={handleInput} />
+                            <input type="time" id="end_time" name='m_ed_time' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required onChange={handleInput} />
                         </div>
                     </div>
                 </div>
@@ -179,7 +197,7 @@ const MainTenanceLogForm = ({ userForm, handleInput, setStatus, status, updateId
             </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
                 <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
             </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
-                <span className="font-medium"> !</span> Email Already Exist
+                <span className="font-medium"> !</span> Unable Create Log
             </Alert>))}
         </div>
     </>

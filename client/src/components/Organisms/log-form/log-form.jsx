@@ -14,6 +14,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
+    userForm.date = currentDate;
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
@@ -65,7 +66,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                         <div className="mb-2 block">
                             <Label htmlFor="shift" value="Select your Shift" />
                         </div>
-                        <Select id="shift" name='shift' required onChange={handleInput}>
+                        <Select id="shift" name='shift_id' required onChange={handleInput}>
                             {/* <option value={0}>select</option> */}
                             {shift && shift.map((value, index) => {
 
@@ -188,7 +189,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
             </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
                 <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
             </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
-                <span className="font-medium"> !</span> Email Already Exist
+                <span className="font-medium"> !</span> Unable Create Log
             </Alert>))}
         </div>
     </>
