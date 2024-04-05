@@ -252,7 +252,7 @@ const ExcelExportJS = ({ tableData, keysForTable, category, location, instrument
         // Save workbook to a file
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: "application/octet-stream" });
-        saveAs(blob, "example.xlsx");
+        saveAs(blob, "logs.xlsx");
     };
 
     return (
