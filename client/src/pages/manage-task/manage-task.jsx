@@ -90,7 +90,7 @@ const ManageTask = () => {
     }, [status, userForm]);
 
     return <>
-        <div className="w-screen p-3">
+        <div className="w-screen p-3 relative overflow-x-auto">
             <div className="flex">
 
             </div>
