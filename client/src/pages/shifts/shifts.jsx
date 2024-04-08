@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import TasksTable from "../../components/Organisms/task-table"
-import { addInstitute, assignMachines, getAssignedMachines, getEmployees, getInstitutes, updateInstitute } from "../../api/AdminApi";
+import { addInstitute, assignMachines, getAssignedMachines, getEmployees, getInstitutes, getShifts, updateInstitute } from "../../api/AdminApi";
 import { Button } from 'flowbite-react';
 import { Modal } from 'flowbite-react';
 import DepartmentForm from "../../components/Organisms/department-form/department-form";
 import LogForm from "../../components/Organisms/log-form/log-form";
 import MachineForm from "../../components/Organisms/assign-machine/assign-machine";
+import ShiftForm from "../../components/Organisms/sift-form/shift-form";
 
 const Shifts = () => {
 
@@ -17,7 +18,7 @@ const Shifts = () => {
     const [userForm, setUserForm] = useState(null);
 
     const columns = ['SHIFT', 'TIME', 'CREATED BY', 'ACTION'];
-    const keys = ['machine_id', 'created_at', 'assigned_by'];
+    const keys = ['shift_id', 'created_at', 'assigned_by'];
 
 
     const handleAdd = async () => {
@@ -53,7 +54,7 @@ const Shifts = () => {
 
     useEffect(() => {
         async function FetchApi() {
-            const institutes = await getAssignedMachines();
+            const institutes = await getShifts();
             setRows(institutes.data);
         }
         FetchApi();
@@ -68,7 +69,7 @@ const Shifts = () => {
             <Modal show={openModal} size="lg" onClose={() => setOpenModal(false)}>
                 <Modal.Header >Create Shifts</Modal.Header>
                 <Modal.Body>
-                    <MachineForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
+                    <ShiftForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
                 </Modal.Body>
             </Modal>
 
