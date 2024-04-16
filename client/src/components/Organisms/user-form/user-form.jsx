@@ -16,73 +16,78 @@ const UserForm = ({ userForm, handleInput, setStatus, status, updateId, handleAd
 
     }, [])
     return <>
-        <div className="space-y-6">
+        <form onSubmit={!updateId ? handleAdd : handleUpdate}>
+            <div className="space-y-6">
 
-            {/* <h3 className="text-xl font-medium text-gray-900 dark:text-white"></h3> */}
-            <div>
-                {/* First Input Pair */}
-                <div className='flex flex-wrap justify-around md:p-3'>
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="firstName" />
+                {/* <h3 className="text-xl font-medium text-gray-900 dark:text-white"></h3> */}
+                <div>
+                    {/* First Input Pair */}
+                    <div className='flex flex-wrap justify-around md:p-3'>
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="firstName" />
+                            </div>
+                            <TextInput id="firstName" name='firstName' placeholder="First Name" value={userForm && userForm.firstName} onChange={handleInput} required />
                         </div>
-                        <TextInput id="firstName" name='firstName' placeholder="First Name" value={userForm && userForm.firstName} onChange={handleInput} required />
-                    </div>
 
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="lastName" />
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="lastName" />
+                            </div>
+                            <TextInput id="lastName" name='lastName' placeholder="Last Name" value={userForm && userForm.lastName} onChange={handleInput} required />
                         </div>
-                        <TextInput id="lastName" name='lastName' placeholder="Last Name" value={userForm && userForm.lastName} onChange={handleInput} required />
                     </div>
+                    {/* Second Input Pair */}
+                    <div className='flex flex-wrap justify-around  md:p-3'>
+
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="contact" />
+                            </div>
+                            <TextInput id="contact" name='contact' placeholder="Contact" value={userForm && userForm.contact} onChange={handleInput} required />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="email" />
+                            </div>
+                            <TextInput id="email" placeholder="Email" name='email' value={userForm && userForm.email} onChange={handleInput} required />
+                        </div>
+
+                    </div>
+                    {/* Third Input Pair */}
+                    <div className='flex md:p-3 justify-around md:justify-around'>
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="password" />
+                            </div>
+                            <TextInput id="password" name='password' placeholder="Password" value={userForm && userForm.password} onChange={handleInput} required />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="mb-2 block">
+                                <Label htmlFor="confpassword" />
+                            </div>
+                            <TextInput id="confpassword" name='confpassword' placeholder="Confirm Password" value={userForm && userForm.confpassword} onChange={handleInput} required />
+
+                        </div>
+                    </div>
+                    {userForm && (userForm.confpassword !== userForm.password) && <Alert color="failure" icon={HiInformationCircle}>Password did not match </Alert>}
+
                 </div>
-                {/* Second Input Pair */}
-                <div className='flex flex-wrap justify-around  md:p-3'>
 
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="contact" />
-                        </div>
-                        <TextInput id="contact" name='contact' placeholder="Contact" value={userForm && userForm.contact} onChange={handleInput} required />
-                    </div>
 
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="email" />
-                        </div>
-                        <TextInput id="email" placeholder="Email" name='email' value={userForm && userForm.email} onChange={handleInput} required />
-                    </div>
-
+                <div className="w-full md:p-3 flex justify-center">
+                    <Button type='submit' >{updateId ? "UPDATE" : "ADD"}</Button>
                 </div>
-                {/* Third Input Pair */}
-                <div className='flex md:p-3 justify-around md:justify-around'>
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="password" />
-                        </div>
-                        <TextInput id="password" name='password' placeholder="Password" value={userForm && userForm.password} onChange={handleInput} required />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="mb-2 block">
-                            <Label htmlFor="confpassword" />
-                        </div>
-                        <TextInput id="confpassword" name='confpassword' placeholder="Confirm Password" value={userForm && userForm.confpassword} onChange={handleInput} required />
-                    </div>
-                </div>
+                {status && (status == "success" ? <Alert color="success" onDismiss={() => setStatus(null)}>
+                    <span className="font-medium">Success !</span> Added Successfully
+                </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
+                    <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
+                </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
+                    <span className="font-medium"> !</span> Email Already Exist
+                </Alert>))}
             </div>
-
-
-            <div className="w-full md:p-3 flex justify-center">
-                <Button onClick={!updateId ? handleAdd : handleUpdate}>{updateId ? "UPDATE" : "ADD"}</Button>
-            </div>
-            {status && (status == "success" ? <Alert color="success" onDismiss={() => setStatus(null)}>
-                <span className="font-medium">Success !</span> Added Successfully
-            </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
-                <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
-            </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
-                <span className="font-medium"> !</span> Email Already Exist
-            </Alert>))}
-        </div>
+        </form>
     </>
 }
 

@@ -22,7 +22,9 @@ export const router = createBrowserRouter(
             <Route path="register" element={<SignUp />} />
             <Route path='user' element={<UserLayout />}>
                 <Route path='account' element={<Account />} />
-
+                <Route path='dashboard' element={<Dashboard />} />
+                <Route path='add-log' element={<AddLog />} />
+                <Route path='machine-logs' element={<ManageTask />} />
             </Route>
             <Route path='admin' element={<AdminLayout />}>
                 <Route path='dashboard' element={<Dashboard />} />

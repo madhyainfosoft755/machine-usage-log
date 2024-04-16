@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TasksTable from "../../components/Organisms/task-table"
-import { addInstitute, getAllLogs, getBreakDownLogs, getCleaningLogs, getEmployees, getInstitutes, getMaintenanceLogs, updateInstitute } from "../../api/AdminApi";
+import { addInstitute, getAllLogs, getBreakDownLogs, getCleaningLogs, getEmployees, getInstitutes, getMaintenanceLogs, updateBreakdownLog, updateCleaningLog, updateInstitute, updateMaintenanceLog, updateUsageLog } from "../../api/AdminApi";
 import { Button, Label, Select } from 'flowbite-react';
 import { Modal } from 'flowbite-react';
 import DepartmentForm from "../../components/Organisms/department-form/department-form";
@@ -20,8 +20,8 @@ const ManageTask = () => {
     const [combinedData, setCombinedData] = useState([]);
     const [logtypes, setLogtypes] = useState([{ name: 'Usage', value: "op" }, { name: 'Cleaning', value: "cl" }, { name: 'Maintenance', value: "m" }, { name: 'Breakdown', value: "break" }]);
 
-    const columns = ['DATE', 'LOCATION', 'FORMAT', 'SHIFT', 'MACNINE', 'BATCH', "START TIME", "END TIME", 'DONE BY', 'CHECK BY'];
-    const keys = ['date', 'location', 'format', 'shift', 'machine_name', 'batch', `${userForm && userForm.category}_st_time`, `${userForm && userForm.category}_ed_time`, 'done_by_name', 'check_by'];
+    const columns = ['DATE', 'LOCATION', 'FORMAT', 'SHIFT', 'MACNINE', 'BATCH', "START TIME", "END TIME", 'DONE BY', 'CHECK BY', 'ACTIONS'];
+    const keys = ['date', 'location', 'format', 'shift', 'machine_name', 'batch', `${userForm && userForm.category}_st_time`, `${userForm && userForm.category}_ed_time`, 'done_by_name', 'check_by_name'];
     const keysForTable = ['date', 'shift', 'machine_name', 'batch', `${userForm && userForm.category}_st_time`, `${userForm && userForm.category}_ed_time`, 'done_by_name', 'check_by', 'remarks'];
 
 
@@ -39,18 +39,24 @@ const ManageTask = () => {
         }
     }
 
-    const handleUpdate = async () => {
-        const formdata = new FormData();
-        if (userForm) {
-            formdata.append("firstName", userForm.firstName);
-            formdata.append("lastName", userForm.lastName);
-            formdata.append("email", userForm.email);
-            formdata.append("contact", userForm.contact);
-            formdata.append("department", userForm.department);
-            formdata.append("user_id", updateId);
-            const addedinst = await addUser(formdata);
-            setStatus(addedinst.status);
+    const handleUpdate = async (id) => {
+        let logs;
+        if (userForm.category == 'op') {
+            logs = await updateUsageLog(id);
         }
+        if (userForm.category == 'm') {
+            logs = await updateCleaningLog(id);
+
+        }
+        if (userForm.category == 'cl') {
+            logs = await updateMaintenanceLog(id);
+
+        }
+        if (userForm.category == 'break') {
+            logs = await updateBreakdownLog(id);
+
+        }
+
     }
 
     const handleInput = (e) => {
@@ -118,8 +124,6 @@ const ManageTask = () => {
                     </div>
                     <Select id="type" name='machine' required onChange={handleInput}>
                         <option value={0}>select</option>
-
-
                         <option key={1} value={1}>{"Checked"}</option>
                         <option key={2} value={2}>{"Unchecked"}</option>
 
@@ -132,7 +136,7 @@ const ManageTask = () => {
             </div>
 
 
-            {rows ? <LogTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} /> : <h3> Loading... </h3>}
+            {rows ? <LogTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} handleUpdate={handleUpdate} /> : <h3> Loading... </h3>}
 
             {/* <Modal show={openModal} size="md" onClose={() => setOpenModal(false)}>
                 <Modal.Header >Add Log</Modal.Header>

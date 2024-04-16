@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import DashboardCard from "../../components/Atoms/dashboard-card"
 import { getDepartments, getEmployees, getMachines } from "../../api/AdminApi";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Dashboard = () => {
     const [userNum, setUserNum] = useState(0);
     const [machineNum, setMachineNum] = useState(0);
     const [departmentNum, setDepartmentNum] = useState(0);
+    const { user, isLoading, isAuthenticated } = useAuthContext();
+
     useEffect(() => {
         const fetchUser = async () => {
             const response = await getEmployees();
@@ -35,7 +38,7 @@ const Dashboard = () => {
 
     }, []);
     return <>
-        <div className="flex flex-wrap justify-around w-full">
+        {user.role == 'admin' ? <div className="flex flex-wrap justify-around w-full">
             <Link to="/admin/users">
                 <DashboardCard title={'OPERATORS'} value={userNum} />
             </Link>
@@ -47,7 +50,16 @@ const Dashboard = () => {
             </Link>
 
 
-        </div>
+        </div> : <div className="flex flex-wrap justify-around w-full">
+            <Link to="/admin/machines">
+                <DashboardCard title={'ASSIGNED MACHINES'} value={machineNum} />
+            </Link>
+            <Link to="/admin/departments">
+                <DashboardCard title={'DEPARTMENT'} value={departmentNum} />
+            </Link>
+
+
+        </div>}
     </>
 }
 

@@ -395,7 +395,7 @@ export const assignMachines = async (data) => {
 };
 
 
-//Get Shifts
+// Shifts
 export const getShifts = async () => {
 
 	
@@ -420,6 +420,32 @@ export const getShifts = async () => {
 		return { status: "error", message: "Exception" };
 	}
 };
+
+export const addShifts = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.post(`${API_URL}/AssignInsert`, JSON.stringify(data) ,{
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
 
 //Tasks
 export const getTasks = async (pageValue) => {
@@ -497,6 +523,32 @@ export const addLog = async (data) => {
 	}
 };
 
+export const updateUsageLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Usage_logs_Update/${data}`,  {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
 export const getUserlogs = async (pageValue) => {
 	let result = {};
 
@@ -556,7 +608,7 @@ export const getCleaningLogs = async (pageValue) => {
 	try {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
-		const result = await axios.get(`${API_URL}/fetchAllCleaning_logsUser_Data`, {
+		const result = await axios.get(`${API_URL}/fetchAllCleaning_logsData`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
@@ -584,6 +636,32 @@ export const addCleaningLog = async (data) => {
 		const accessToken = localStorage.getItem('accessToken');
 
 		result = await axios.post(`${API_URL}/Cleaning_logsInsert`, JSON.stringify(data), {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
+export const updateCleaningLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Cleaning_logs_Update/${data}`,  {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
@@ -654,6 +732,32 @@ export const getMaintenanceLogs = async (pageValue) => {
 	}
 };
 
+export const updateMaintenanceLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Maintenance_logs_Update/${data}`,  {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
 
 //breakdown logs
 export const addBreakdownLog = async (data) => {
@@ -688,6 +792,32 @@ export const getBreakDownLogs = async (pageValue) => {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
 		const result = await axios.get(`${API_URL}/fetchAllBreakdown_logsData`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
+export const updateBreakdownLog = async (data) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+
+		result = await axios.post(`${API_URL}/Breakdown_logs_Update/${data}`,  {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}

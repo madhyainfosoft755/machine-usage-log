@@ -21,10 +21,11 @@ const Employees = () => {
     const keys = ['user_name', 'user_contact', 'user_email', 'department_id'];
 
 
-    const handleAdd = async () => {
+    const handleAdd = async (e) => {
+        e.preventDefault();
         const formdata = new FormData();
         console.log(userForm, "user form tehat");
-        if (userForm) {
+        if (userForm && (userForm.confpassword == userForm.password)) {
             formdata.append("user_name", userForm.firstName + " " + userForm.lastName);
             formdata.append("user_email", userForm.email);
             formdata.append("user_password", userForm.password);
@@ -32,7 +33,7 @@ const Employees = () => {
             // formdata.append("department", userForm.department);
             const addedinst = await addUser(formdata);
             setStatus(addedinst.status);
-            setUserForm(null)
+            setUserForm(null);
         }
     }
 
@@ -62,7 +63,7 @@ const Employees = () => {
         }
         FetchApi();
     }, [status]);
-
+    6
     return <>
         <div className="w-screen p-3">
             <Button onClick={() => { setOpenModal(true); setStatus(null) }} className="mb-3" size={"xs"} >Add User</Button>

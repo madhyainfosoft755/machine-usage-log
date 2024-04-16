@@ -6,10 +6,10 @@ const rows = [
 ];
 
 const columns = ['id', 'name', 'age', 'country', "action"];
-import { Pagination } from 'flowbite-react';
+import { Checkbox, Label, Pagination } from 'flowbite-react';
 import { useState } from 'react';
 
-const LogTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action, setCurrentUser, nameA }) => {
+const LogTable = ({ rows, columns, keys, handleUpdate, setUpdateId, setOpenModal, action, setCurrentUser, nameA }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -36,7 +36,19 @@ const LogTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action, setC
                                 </th>
                             })}
 
+                            <td class="px-6 py-4">
+                                {value['check_by'] ? <div className="flex items-center gap-2">
+                                    <Checkbox id="remember" defaultChecked disabled />
+                                    <Label htmlFor="remember">Check</Label>
 
+                                </div> : <div className="flex items-center gap-2">
+                                    <Checkbox id="remember" key={value['done_by']} onChange={() => { handleUpdate(value[keys[0]]) }} />
+                                    <Label htmlFor="remember">Check</Label>
+
+                                </div>}
+
+                                {/* <a onClick={() => { setOpenModal(true); setUpdateId(value[action]); setCurrentUser(value[nameA]); }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Check</a> */}
+                            </td>
                         </tr>
                     })}
 
