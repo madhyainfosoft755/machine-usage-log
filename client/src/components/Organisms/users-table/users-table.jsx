@@ -1,18 +1,18 @@
-// const rows = [
-//     { id: 1, name: 'John', age: 25, country: 'USA' },
-//     { id: 2, name: 'Alice', age: 30, country: 'Canada' },
-//     { id: 3, name: 'Bob', age: 22, country: 'UK' },
-//     // Add more rows as needed
-// ];
+const rows = [
+    { id: 1, name: 'John', age: 25, country: 'USA' },
+    { id: 2, name: 'Alice', age: 30, country: 'Canada' },
+    { id: 3, name: 'Bob', age: 22, country: 'UK' },
+    // Add more rows as needed
+];
 
 const columns = ['id', 'name', 'age', 'country', "action"];
-import { Checkbox, Label, Pagination } from 'flowbite-react';
+import { Pagination } from 'flowbite-react';
 import { useState } from 'react';
 
-const LogTable = ({ rows, columns, keys, handleUpdate, userRole, category, setUpdateId, setOpenModal, action, setCurrentUser, nameA }) => {
+const UsersTable = ({ rows, columns, keys, setUpdateId, setOpenModal, action, setCurrentUser, nameA, setDeleteModal }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
-    console.log("users ster", rows);
+
     const onPageChange = (page) => setCurrentPage(page);
     return <>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex flex-col justify-center">
@@ -36,19 +36,11 @@ const LogTable = ({ rows, columns, keys, handleUpdate, userRole, category, setUp
                                 </th>
                             })}
 
-                            {userRole == 'admin' && <td class="px-6 py-4">
-                                {value['check_by'] ? <div className="flex items-center gap-2">
-                                    <Checkbox id="remember" defaultChecked disabled />
-                                    <Label htmlFor="remember">Check</Label>
-
-                                </div> : <div className="flex items-center gap-2">
-                                    <Checkbox id="remember" key={value['done_by']} onChange={() => { handleUpdate(value['log_id']) }} />
-                                    <Label htmlFor="remember">Check</Label>
-
-                                </div>}
-
-                                {/* <a onClick={() => { setOpenModal(true); setUpdateId(value[action]); setCurrentUser(value[nameA]); }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Check</a> */}
-                            </td>}
+                            <td class="px-6 py-4">
+                                <a onClick={() => { setOpenModal(true); setUpdateId(value[action]); setCurrentUser(value[nameA]); }} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                &nbsp; &nbsp;
+                                <a onClick={() => { setDeleteModal(true); setUpdateId(value[action]); setCurrentUser(value[nameA]); }} class="font-medium text-red-600 dark:text-red-500 hover:underline">Deactivate</a>
+                            </td>
                         </tr>
                     })}
 
@@ -59,8 +51,9 @@ const LogTable = ({ rows, columns, keys, handleUpdate, userRole, category, setUp
                 {/* <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} /> */}
 
             </div>
+
         </div>
 
     </>
 }
-export default LogTable;
+export default UsersTable;

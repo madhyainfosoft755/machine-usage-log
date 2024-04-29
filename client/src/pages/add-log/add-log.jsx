@@ -11,6 +11,23 @@ import { GiHammerBreak } from "react-icons/gi";
 import { BiSpreadsheet } from "react-icons/bi";
 import { FaSoap } from "react-icons/fa";
 
+const formatDate = (inputDateString) => {
+    const dateObj = new Date(inputDateString);
+
+    // Extract date and time components
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const hours = String(dateObj.getHours()).padStart(2, '0');
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+    const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+
+    // Construct the formatted date string 'Y-m-d H:i:s'
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    return formattedDate;
+};
+
 const AddLog = () => {
 
     const [status, setStatus] = useState(null);
@@ -50,14 +67,20 @@ const AddLog = () => {
     }
 
     const handleInput = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+        if (name.includes("st_time") || name.includes("ed_time")) {
+            const currentDate = usageForm.date.toISOString().slice(0, 10);
+            value = `${currentDate} ${value}:00`;
+        }
         setUsageForm({ ...usageForm, [name]: value });
-        console.log(usageForm, "curren form data");
+        console.log(usageForm, "current form data");
     }
 
     const handleDate = (e) => {
         console.log(e, 'current date');
-        setUsageForm({ ...usageForm, 'date': e });
+        const formattedDate = formatDate(e);
+        console.log(formattedDate);
+        setUsageForm({ ...usageForm, 'date': formattedDate });
         console.log(usageForm, "curren form data");
     }
 

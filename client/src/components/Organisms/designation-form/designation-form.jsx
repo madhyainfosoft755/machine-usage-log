@@ -7,7 +7,7 @@ const DesignationForm = ({ setInstituteName, setStatus, status, instituteName, u
         <div className="space-y-6">
 
             {/* <h3 className="text-xl font-medium text-gray-900 dark:text-white">ADD DESIGNATION</h3> */}
-            <div className="max-w-md">
+            {/* <div className="max-w-md">
                 <div className="mb-2 block">
                     <Label htmlFor="department" value="Choose Department" />
                 </div>
@@ -16,7 +16,7 @@ const DesignationForm = ({ setInstituteName, setStatus, status, instituteName, u
                         return <option>{value.department_name}</option>
                     })}
                 </Select>
-            </div>
+            </div> */}
             <div>
                 <div className="mb-2 block">
                     <Label htmlFor="machine" />
@@ -24,7 +24,7 @@ const DesignationForm = ({ setInstituteName, setStatus, status, instituteName, u
                 <TextInput id="machine" placeholder="Machine Name" value={instituteName} onChange={(e) => { setInstituteName(e.target.value) }} required />
             </div>
             <div className="w-full">
-                <Button onClick={!updateId ? handleAdd : handleUpdate}>ADD</Button>
+                <Button onClick={!updateId ? handleAdd : handleUpdate}>{updateId ? "UPDATE" : "ADD"}</Button>
             </div>
             {status && (status == "success" ? <Alert color="success" onDismiss={() => setStatus(null)}>
                 <span className="font-medium">Success !</span> Added Successfully

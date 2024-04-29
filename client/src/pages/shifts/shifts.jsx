@@ -16,9 +16,10 @@ const Shifts = () => {
     const [status, setStatus] = useState(null);
     const [updateId, setUpdateId] = useState(null);
     const [userForm, setUserForm] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
-    const columns = ['SHIFT', 'TIME', 'CREATED BY', 'ACTION'];
-    const keys = ['shift_id', 'created_at', 'assigned_by'];
+    const columns = ['SHIFT', 'TIME', 'ACTION'];
+    const keys = ['created_at',];
 
 
     const handleAdd = async () => {
@@ -64,10 +65,11 @@ const Shifts = () => {
         <div className="w-screen p-3">
             <Button onClick={() => { setOpenModal(true) }} className="mb-3" size={"xs"} > Add Shift </Button>
 
-            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} /> : <h3> Loading... </h3>}
+            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} setCurrentUser={setCurrentUser} /> : <h3> Loading... </h3>}
 
             <Modal show={openModal} size="lg" onClose={() => setOpenModal(false)}>
                 <Modal.Header >Create Shifts</Modal.Header>
+
                 <Modal.Body>
                     <ShiftForm status={status} handleInput={handleInput} userForm={userForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} />
                 </Modal.Body>

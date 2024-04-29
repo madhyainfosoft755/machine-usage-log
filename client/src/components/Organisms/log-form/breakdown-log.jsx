@@ -164,20 +164,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                     </div>
                 </div>
 
-                <div class="mb-6 p-3 mt-8">
-                    <div className="w-full">
-                        <div className="mb-2 block">
-                            <Label htmlFor="check_by" value="Checked By" />
-                        </div>
-                        <Select id="check_by" name='check_by' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {user && user.map((value, index) => {
 
-                                return <option key={index}>{value.user_name}</option>;
-                            })}
-                        </Select>
-                    </div>
-                </div>
                 <div className="w-full"></div>
 
                 <div class="mb-6 p-3">

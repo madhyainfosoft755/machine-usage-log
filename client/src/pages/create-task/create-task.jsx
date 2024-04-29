@@ -16,7 +16,7 @@ const CreateTask = () => {
     const [updateId, setUpdateId] = useState(null);
     const [userForm, setUserForm] = useState(null);
 
-    const columns = ['MACHINE NAME', 'ASSIGN TO', 'ASSIGNED BY', 'DATE OF ASSIGNMENT', 'ACTION'];
+    const columns = ['Sno', 'MACHINE NAME', 'ASSIGN TO', 'ASSIGNED BY', 'DATE OF ASSIGNMENT', 'ACTION'];
     const keys = ['machine_name', 'user_name', 'assigned_by', 'created_at'];
 
 

@@ -16,7 +16,7 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
 
     const [machines, setMachines] = useState(null);
     const [shift, setShift] = useState([{ shift: 1 }, { shift: 2 }, { shift: 3 }]);
-    const [cleaningtype, setCleaningType] = useState([{ shift: 'A' }, { shift: 'B' }]);
+    const [cleaningtype, setCleaningType] = useState([{ shift: 'A' }, { shift: 'B' }, { shift: 'NA' }]);
     const [area, setArea] = useState(["area 1", "area 2", "area 3"]);
 
     const [user, setUsers] = useState(null);
@@ -68,23 +68,6 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                 <h2 className="text-xl font-medium text-gray-700 dark:text-white"> {currentMonth} {currentYear}</h2>
             </div>
             <form className='flex flex-wrap justify-between' onSubmit={handleAdd}>
-                <div class="mb-6 p-3">
-                    <div className="w-full">
-                        <div className="mb-2 block">
-                            <Label htmlFor="usagelog" value="Select your logs" />
-                        </div>
-                        <Select id="usagelog" name='log_id' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {/* {shift && shift.map((value, index) => {
-
-                                return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
-                            })} */}
-                            <option value={3}>log 1</option>
-                            <option value={4}>log 2</option>
-                            <option value={4}>log 3</option>
-                        </Select>
-                    </div>
-                </div>
                 <div class="mb-6 p-3">
                     <div className="w-full">
                         <div className="mb-2 block">
@@ -201,20 +184,7 @@ const CleaningLogForm = ({ userForm, handleInput, setStatus, status, updateId, h
                     </div>
                 </div>
 
-                <div class="mb-6 p-3 mt-8">
-                    <div className="w-full">
-                        <div className="mb-2 block">
-                            <Label htmlFor="check_by" value="Checked By" />
-                        </div>
-                        <Select id="check_by" name='check_by' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
-                            {user && user.map((value, index) => {
 
-                                return <option key={index}>{value.user_name}</option>;
-                            })}
-                        </Select>
-                    </div>
-                </div>
                 <div className="w-full"></div>
 
                 <div class="mb-6 p-3">
