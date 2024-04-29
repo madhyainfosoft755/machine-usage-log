@@ -21,7 +21,7 @@ const LogoutTimer = () => {
                 // Implement your logout logic (e.g., redirect, clear session, etc.)
                 // Example: 
                 // logoutUser(); // Function to logout user
-                // logOut();
+                logOut();
             }, 240000);
 
             // Update the logoutTime state with the new timer ID
