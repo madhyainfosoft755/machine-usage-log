@@ -32,10 +32,14 @@ const Employees = () => {
             formdata.append("user_email", userForm.email);
             formdata.append("user_password", userForm.password);
             formdata.append("user_contact", userForm.contact);
+            formdata.append("is_admin", 0);
+            formdata.append("is_superadmin", 0);
+            formdata.append("is_active", 1);
             // formdata.append("department", userForm.department);
             const addedinst = await addUser(formdata);
-            setStatus(addedinst.status);
-            setUserForm(null);
+            setStatus(addedinst);
+
+            // setUserForm(null);
         }
     }
 
@@ -55,7 +59,8 @@ const Employees = () => {
             // formdata.append("department", userForm.department);
             // formdata.append("user_id", updateId);
             const addedinst = await updateUser(formdata, updateId);
-            setStatus(addedinst.status);
+            console.log(addedinst, 'value from api ');
+            setStatus(addedinst);
         }
     }
 
@@ -77,7 +82,7 @@ const Employees = () => {
         }
         FetchApi();
     }, [status]);
-    6
+
     return <>
         <div className="w-screen p-3">
             <Button onClick={() => { setOpenModal(true); setStatus(null) }} className="mb-3" size={"xs"} >Add User</Button>

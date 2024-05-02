@@ -79,13 +79,12 @@ const UserForm = ({ userForm, handleInput, setStatus, status, updateId, handleAd
                 <div className="w-full md:p-3 flex justify-center">
                     <Button type='submit' >{updateId ? "UPDATE" : "ADD"}</Button>
                 </div>
-                {status && (status == "success" ? <Alert color="success" onDismiss={() => setStatus(null)}>
-                    <span className="font-medium">Success !</span> Added Successfully
-                </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
-                    <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
-                </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
-                    <span className="font-medium"> !</span> Email Already Exist
-                </Alert>))}
+                {console.log(status, "why not")}
+                {(status && status.status == 'error') ? <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
+                    <span className="font-medium"> !</span>  {status && status.message}
+                </Alert> : (status && status.status == 'success') && <Alert color="success" onDismiss={() => setStatus(null)}>
+                    <span className="font-medium">Success !</span> {status && status.message}
+                </Alert>}
             </div>
         </form>
     </>

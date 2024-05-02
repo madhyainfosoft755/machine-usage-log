@@ -5,7 +5,7 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 const LogoutTimer = () => {
     const [logoutTime, setLogoutTime] = useState(60);
     const { user } = useAuthContext();
-    const { logOut } = useLogin()
+    const { logOut } = useLogin();
     useEffect(() => {
         // Function to handle user activity
         const handleUserActivity = () => {
@@ -17,12 +17,13 @@ const LogoutTimer = () => {
                 // Perform logout action here (e.g., clear user session)
                 if (user) {
                     alert('Logging out due to inactivity...');
+                    // logOut();
+
                 }
                 // Implement your logout logic (e.g., redirect, clear session, etc.)
                 // Example: 
                 // logoutUser(); // Function to logout user
-                logOut();
-            }, 240000);
+            }, 2400000);
 
             // Update the logoutTime state with the new timer ID
             setLogoutTime(timeoutId);

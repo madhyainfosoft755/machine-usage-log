@@ -166,7 +166,7 @@ export const addUser = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -192,7 +192,7 @@ export const updateUser = async (data, id) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -218,7 +218,7 @@ export const deactivateUser = async (id) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -242,7 +242,7 @@ export const getDepartments = async () => {
 		// console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -262,7 +262,7 @@ export const addDepartment = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -307,7 +307,7 @@ export const getMachines = async () => {
 		// console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -332,7 +332,7 @@ export const addMachines = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -357,7 +357,7 @@ export const updateMachines = async (data, id) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user"};
+			return result.data;
 		}
 
 		return result.data;
@@ -380,7 +380,7 @@ export const getDesignations = async (pageValue) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -407,7 +407,7 @@ export const getAssignedMachines = async () => {
 		// console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -432,7 +432,7 @@ export const assignMachines = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -484,7 +484,7 @@ export const addShifts = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -559,7 +559,7 @@ export const getAllCheckedLogs = async (pageValue) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -586,7 +586,7 @@ export const addLog = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -613,7 +613,7 @@ export const updateUsageLog = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -744,7 +744,7 @@ export const addCleaningLog = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -771,7 +771,7 @@ export const updateCleaningLog = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -800,7 +800,7 @@ data.date = formatDate(data.date);
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
@@ -876,7 +876,7 @@ export const updateMaintenanceLog = async (data) => {
 		console.log(result);
 
 		if (!(result.data.status == "success")) {
-			return { status: "error", message: "did not get any user" };
+			return result.data;
 		}
 
 		return result.data;
