@@ -67,7 +67,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                             <Label htmlFor="shift" value="Select your Shift" />
                         </div>
                         <Select id="shift" name='shift_id' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {shift && shift.map((value, index) => {
 
                                 return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
@@ -82,7 +82,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                             <Label htmlFor="area" value="Area" />
                         </div>
                         <Select id="area" name='area' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {area && area.map((value, index) => {
 
                                 return <option key={index}>{value}</option>;
@@ -97,7 +97,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                             <Label htmlFor="machine" value="Select your Machine" />
                         </div>
                         <Select id="machine" name='machine' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {machines && machines.map((value, index) => {
 
                                 return <option key={index} value={value.machine_id}>{value.machine_name}</option>;
@@ -147,7 +147,7 @@ const LogForm = ({ userForm, handleInput, setStatus, status, updateId, handleAdd
                             <Label htmlFor="done_by" value="Done By" />
                         </div>
                         <Select id="done_by" name='done_by' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {user && user.map((value, index) => {
 
                                 return <option key={index}>{value.user_name}</option>;

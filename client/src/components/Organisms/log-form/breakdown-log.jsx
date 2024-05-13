@@ -84,7 +84,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                             <Label htmlFor="shift" value="Select your Shift" />
                         </div>
                         <Select id="shift" name='shift_id' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {shift && shift.map((value, index) => {
 
                                 return <option key={index} value={value.shift_id}>{value.start_time + "-" + value.end_time}</option>;
@@ -98,7 +98,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                             <Label htmlFor="area" value="Area" />
                         </div>
                         <Select id="area" name='area' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {area && area.map((value, index) => {
 
                                 return <option key={index}>{value}</option>;
@@ -112,7 +112,7 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
                             <Label htmlFor="machine" value="Select your Machine" />
                         </div>
                         <Select id="machine" name='machine' required onChange={handleInput}>
-                            {/* <option value={0}>select</option> */}
+                            <option value={0}>select</option>
                             {machines && machines.map((value, index) => {
 
                                 return <option key={index} value={value.machine_id}>{value.machine_name}</option>;

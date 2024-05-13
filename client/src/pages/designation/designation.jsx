@@ -33,6 +33,7 @@ const Designation = () => {
     }
 
     const handleUpdate = async () => {
+        setStatus(null);
         const formdata = new FormData();
         formdata.append("institute_name", instituteName);
         formdata.append("institute_id", updateId);
@@ -61,9 +62,9 @@ const Designation = () => {
         <div className="w-screen p-3">
             <Button onClick={() => { setOpenModal(true) }} className="mb-3" size={"xs"} >Add Machine</Button>
 
-            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} setCurrentUser={setCurrentUser} action="machine_id" /> : <h3> Loading... </h3>}
+            {rows ? <TasksTable columns={columns} rows={rows && rows} keys={keys} setUpdateId={setUpdateId} setOpenModal={setOpenModal} setCurrentUser={setCurrentUser} action="machine_id" nameA="machine_name" /> : <h3> Loading... </h3>}
 
-            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)}>
+            <Modal show={openModal} size="md" onClose={() => { setOpenModal(false); setUpdateId(null) }}>
                 <Modal.Header >{updateId ? "UPDATE MACHINE" : "ADD MACHINE"} {currentUser && "(" + currentUser + ")"}</Modal.Header>
                 <Modal.Body>
                     <DesignationForm status={status} departments={departments} setInstituteName={setInstituteName} instituteName={instituteName} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} />

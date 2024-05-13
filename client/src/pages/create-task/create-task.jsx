@@ -57,7 +57,7 @@ const CreateTask = () => {
             setRows(institutes.data);
         }
         FetchApi();
-    }, [status]);
+    }, [status, userForm]);
 
     return <>
         <div className="w-screen p-3">
