@@ -17,7 +17,7 @@ const LogoutTimer = () => {
                 // Perform logout action here (e.g., clear user session)
                 if (user) {
                     alert('Logging out due to inactivity...');
-                    // logOut();
+                    logOut();
 
                 }
                 // Implement your logout logic (e.g., redirect, clear session, etc.)
