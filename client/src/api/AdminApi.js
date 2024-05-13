@@ -130,7 +130,7 @@ export const getEmployees = async (pageValue) => {
 	try {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
-		const result = await axios.get(`${API_URL}/fetchAllUserData`, {
+		const result = await axios.get(`${API_URL}/fetchAllUser_is_active_Data`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}
@@ -568,7 +568,30 @@ export const getAllCheckedLogs = async (pageValue) => {
 		return { status: "error", message: "Exception" };
 	}
 };
+export const getAllUncheckedLogs = async (pageValue) => {
+	let result = {};
 
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetch_UsageLogs_Where_CheckBy_Null`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return result.data;
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
 export const addLog = async (data) => {
 	let result = {};
 	data.date = formatDate(data.date);
@@ -727,6 +750,32 @@ export const getCleaningCheckedLogs = async (pageValue) => {
 };
 
 
+export const getCleaningUnCheckedLogs = async (pageValue) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetch_CleaningLogs_Where_CheckBy_Null`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
+
 export const addCleaningLog = async (data) => {
 	let result = {};
     data.date = formatDate(data.date);
@@ -859,6 +908,31 @@ export const getMaintenanceCheckedLogs = async (pageValue) => {
 	}
 };
 
+export const getMaintenanceUnCheckedLogs = async (pageValue) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetch_Maintenance_logs_Where_CheckBy_Null`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
 export const updateMaintenanceLog = async (data) => {
 	let result = {};
 
@@ -946,6 +1020,31 @@ export const getBreakDownCheckedLogs = async (pageValue) => {
 		// const headers = getAuthToken();
 		const accessToken = localStorage.getItem('accessToken');
 		const result = await axios.get(`${API_URL}/fetch_breakdown_logs_By_CheckBy_ID`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return { status: "error", message: "did not get any user" };
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};
+
+export const getBreakDownUnCheckedLogs = async (pageValue) => {
+	let result = {};
+
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetch_Breakdown_logs_Where_CheckBy_Null`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			}

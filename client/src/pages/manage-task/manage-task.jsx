@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TasksTable from "../../components/Organisms/task-table"
-import { addInstitute, getAllCheckedLogs, getAllLogs, getBreakDownCheckedLogs, getBreakDownLogs, getCleaningCheckedLogs, getCleaningLogs, getEmployees, getInstitutes, getMaintenanceCheckedLogs, getMaintenanceLogs, updateBreakdownLog, updateCleaningLog, updateInstitute, updateMaintenanceLog, updateUsageLog } from "../../api/AdminApi";
+import { addInstitute, getAllCheckedLogs, getAllLogs, getAllUncheckedLogs, getBreakDownCheckedLogs, getBreakDownLogs, getBreakDownUnCheckedLogs, getCleaningCheckedLogs, getCleaningLogs, getCleaningUnCheckedLogs, getEmployees, getInstitutes, getMaintenanceCheckedLogs, getMaintenanceLogs, getMaintenanceUnCheckedLogs, updateBreakdownLog, updateCleaningLog, updateInstitute, updateMaintenanceLog, updateUsageLog } from "../../api/AdminApi";
 import { Button, Label, Select } from 'flowbite-react';
 import { Modal } from 'flowbite-react';
 import DepartmentForm from "../../components/Organisms/department-form/department-form";
@@ -71,49 +71,49 @@ const ManageTask = () => {
     }
 
 
-    useEffect(() => {
-        async function FetchApi() {
-            let logs;
-            if (userForm.category == 'op') {
-                console.log(user, "user role")
-                if (user.role == 'user')
-                    logs = await getUserUsageLogs();
-                else
-                    logs = await getAllLogs();
+    // useEffect(() => {
+    //     async function FetchApi() {
+    //         let logs;
+    //         if (userForm.category == 'op') {
+    //             console.log(user, "user role")
+    //             if (user.role == 'user')
+    //                 logs = await getUserUsageLogs();
+    //             else
+    //                 logs = await getAllLogs();
 
-            }
-            if (userForm.category == 'm') {
-                if (user.role == 'user')
-                    logs = await getUserMaintenanceLogs();
-                else
-                    logs = await getMaintenanceLogs();
+    //         }
+    //         if (userForm.category == 'm') {
+    //             if (user.role == 'user')
+    //                 logs = await getUserMaintenanceLogs();
+    //             else
+    //                 logs = await getMaintenanceLogs();
 
-            }
-            if (userForm.category == 'cl') {
-                if (user.role == 'user')
-                    logs = await getUserCleaningLogs();
-                else
-                    logs = await getCleaningLogs();
+    //         }
+    //         if (userForm.category == 'cl') {
+    //             if (user.role == 'user')
+    //                 logs = await getUserCleaningLogs();
+    //             else
+    //                 logs = await getCleaningLogs();
 
-            }
-            if (userForm.category == 'break') {
-                if (user.role == 'user')
-                    logs = await getUserBreakdownLogs();
-                else
-                    logs = await getBreakDownLogs();
+    //         }
+    //         if (userForm.category == 'break') {
+    //             if (user.role == 'user')
+    //                 logs = await getUserBreakdownLogs();
+    //             else
+    //                 logs = await getBreakDownLogs();
 
-            }
+    //         }
 
 
-            // Combine data from all APIs into a single array
-            // const combinedArray = [...api1Data, ...api2Data, ...api3Data, ...api4Data];
+    //         // Combine data from all APIs into a single array
+    //         // const combinedArray = [...api1Data, ...api2Data, ...api3Data, ...api4Data];
 
-            // Sort the combined array by date
-            // combinedArray.sort((a, b) => new Date(a.date) - new Date(b.date));
-            setRows(logs.data);
-        }
-        FetchApi();
-    }, [status, userForm]);
+    //         // Sort the combined array by date
+    //         // combinedArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+    //         setRows(logs.data);
+    //     }
+    //     FetchApi();
+    // }, [status, userForm]);
 
     useEffect(() => {
         async function FetchApiCheck() {
@@ -121,21 +121,32 @@ const ManageTask = () => {
             if (userForm.category == 'op') {
                 if (userForm.checks == 1)
                     logs = await getAllCheckedLogs();
+                else
+                    logs = await getAllUncheckedLogs();
 
             }
             if (userForm.category == 'm') {
                 if (userForm.checks == 1)
                     logs = await getMaintenanceCheckedLogs();
+                else
+                    logs = await getMaintenanceUnCheckedLogs();
+
 
             }
             if (userForm.category == 'cl') {
                 if (userForm.checks == 1)
                     logs = await getCleaningCheckedLogs();
+                else
+                    logs = await getCleaningUnCheckedLogs();
+
 
             }
             if (userForm.category == 'break') {
                 if (userForm.checks == 1)
                     logs = await getBreakDownCheckedLogs();
+                else
+                    logs = await getBreakDownUnCheckedLogs();
+
 
             }
 

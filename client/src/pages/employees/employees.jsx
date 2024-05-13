@@ -15,6 +15,7 @@ const Employees = () => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [instituteName, setInstituteName] = useState(null);
     const [status, setStatus] = useState(null);
+    const [dataChange, setDataChange] = useState(null);
     const [updateId, setUpdateId] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [userForm, setUserForm] = useState(null);
@@ -67,6 +68,7 @@ const Employees = () => {
     const handleDeactivate = async () => {
         if (updateId) {
             const deactivate = await deactivateUser(updateId);
+            setDataChange(deactivate);
         }
     }
 
@@ -81,7 +83,7 @@ const Employees = () => {
             setRows(institutes.data);
         }
         FetchApi();
-    }, [status]);
+    }, [status, dataChange]);
 
     return <>
         <div className="w-screen p-3">
