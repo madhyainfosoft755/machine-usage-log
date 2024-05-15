@@ -31,6 +31,8 @@ const formatDate = (inputDateString) => {
 const AddLog = () => {
 
     const [status, setStatus] = useState(null);
+    const [message, setMessage] = useState(null);
+
     const [updateId, setUpdateId] = useState(null);
     const [logID, setLogID] = useState(null);
     const [usageForm, setUsageForm] = useState({ location: "bhopal", format: "QA/035-F01-00" });
@@ -49,6 +51,7 @@ const AddLog = () => {
             // formdata.append("department", userForm.department);
             const addedinst = await addLog(usageForm);
             setStatus(addedinst.status);
+            setMessage(addedinst.message);
         }
     }
 
@@ -97,7 +100,7 @@ const AddLog = () => {
             <Tabs.Item title="Usage Log" icon={HiClipboardList}>
                 <div className="p-5 flex justify-center">
                     <div className="w-full p-10">
-                        <LogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} logID={parseInt(logID) + 1} />
+                        <LogForm status={status} handleInput={handleInput} handleDate={handleDate} userForm={usageForm} handleAdd={handleAdd} updateId={updateId} handleUpdate={handleUpdate} setStatus={setStatus} logID={parseInt(logID) + 1} message={message} />
                     </div>
                 </div>
             </Tabs.Item>

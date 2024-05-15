@@ -9,7 +9,7 @@ function formatNumberWithLeadingZeros(number, length) {
     return String(number).padStart(length, '0');
 }
 const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, handleUpdate, handleDate }) => {
-    const [department, setDepartment] = useState(null);
+    const [message, setMessage] = useState(null);
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
@@ -34,6 +34,8 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
             const addedinst = await addBreakdownLog(userForm);
             console.log("cleaning log added");
             setStatus(addedinst.status);
+            setMessage(addedinst.message);
+
         }
     }
 
@@ -181,11 +183,11 @@ const BreakDownLogForm = ({ userForm, handleInput, setStatus, status, updateId, 
             <button type="submit" onClick={handleAdd} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 
             {status && (status == "success" ? <Alert color="success" onDismiss={() => setStatus(null)}>
-                <span className="font-medium">Success !</span> Added Successfully
+                <span className="font-medium">Success !</span> {message}
             </Alert> : (status == "already" ? <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 mt-2.5" role="alert">
                 <span class="font-mediumn"> ! </span> {'Unable to add please try again'}
             </div> : <Alert color="failure" icon={HiInformationCircle} onDismiss={() => setStatus(null)}>
-                <span className="font-medium"> !</span> Unable Create Log
+                <span className="font-medium"> !</span> {message}
             </Alert>))}
         </div>
     </>
