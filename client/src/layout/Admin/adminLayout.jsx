@@ -5,6 +5,7 @@ import SideBar from '../../components/Organisms/sidebar/sidebar';
 import SidebarNione from '../../components/Organisms/nionesidebar/nione-sidebar';
 import SidebarComponent from '../../components/Organisms/reac-sidebar.jsx';
 import LogoutTimer from '../../components/Molecules/logout-counter/logout-timer.jsx';
+import TokenValidator from '../../components/Molecules/token-validator/token-validator.jsx';
 
 const AdminLayout = () => {
     const { user, isLoading, isAuthenticated } = useAuthContext();
@@ -37,6 +38,7 @@ const AdminLayout = () => {
             <SidebarComponent />
             <Outlet />
             <LogoutTimer />
+            <TokenValidator />
         </div>
 
     </>

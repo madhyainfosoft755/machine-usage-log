@@ -67,9 +67,14 @@ function SidebarComponent() {
                             Add Log
                         </Sidebar.Item>
                     </Link>
-                    <Sidebar.Item href="#" icon={IoIosSettings}>
-                        Settings
-                    </Sidebar.Item>
+                    <Link to={"trail"} >
+                        <Sidebar.Item icon={IoIosSettings}>
+                            Trail
+                        </Sidebar.Item>
+                    </Link>
+                    {/* <Sidebar.Item href="#" icon={IoIosSettings}>
+                        setting
+                    </Sidebar.Item> */}
                     <Sidebar.Item onClick={() => { logOut() }} icon={FaSignOutAlt}>
                         Logout
                     </Sidebar.Item>

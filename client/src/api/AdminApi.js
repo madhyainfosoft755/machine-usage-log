@@ -1089,3 +1089,29 @@ data.date = formatDate(data.date);
 		return { status: "error", message: "Exception" };
 	}
 };
+
+
+//Get api logs
+export const getApiLogs = async (page,rows) => {
+	
+	try {
+		// const headers = getAuthToken();
+		const accessToken = localStorage.getItem('accessToken');
+		const result = await axios.get(`${API_URL}/fetchAllApp_logsData/${page}/${rows}`, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+
+		// console.log(result);
+
+		if (!(result.data.status == "success")) {
+			return result.data;
+		}
+
+		return result.data;
+	} catch (err) {
+		console.log(err, "An exception occured");
+		return { status: "error", message: "Exception" };
+	}
+};

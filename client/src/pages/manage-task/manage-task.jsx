@@ -71,49 +71,35 @@ const ManageTask = () => {
     }
 
 
-    // useEffect(() => {
-    //     async function FetchApi() {
-    //         let logs;
-    //         if (userForm.category == 'op') {
-    //             console.log(user, "user role")
-    //             if (user.role == 'user')
-    //                 logs = await getUserUsageLogs();
-    //             else
-    //                 logs = await getAllLogs();
+    useEffect(() => {
+        async function FetchApi() {
+            let logs;
+            if (userForm.category == 'op') {
+                console.log(user, "user role")
+                if (user.role == 'user')
+                    logs = await getUserUsageLogs();
 
-    //         }
-    //         if (userForm.category == 'm') {
-    //             if (user.role == 'user')
-    //                 logs = await getUserMaintenanceLogs();
-    //             else
-    //                 logs = await getMaintenanceLogs();
+            }
+            if (userForm.category == 'm') {
+                if (user.role == 'user')
+                    logs = await getUserMaintenanceLogs();
 
-    //         }
-    //         if (userForm.category == 'cl') {
-    //             if (user.role == 'user')
-    //                 logs = await getUserCleaningLogs();
-    //             else
-    //                 logs = await getCleaningLogs();
+            }
+            if (userForm.category == 'cl') {
+                if (user.role == 'user')
+                    logs = await getUserCleaningLogs();
 
-    //         }
-    //         if (userForm.category == 'break') {
-    //             if (user.role == 'user')
-    //                 logs = await getUserBreakdownLogs();
-    //             else
-    //                 logs = await getBreakDownLogs();
+            }
+            if (userForm.category == 'break') {
+                if (user.role == 'user')
+                    logs = await getUserBreakdownLogs();
 
-    //         }
+            }
 
-
-    //         // Combine data from all APIs into a single array
-    //         // const combinedArray = [...api1Data, ...api2Data, ...api3Data, ...api4Data];
-
-    //         // Sort the combined array by date
-    //         // combinedArray.sort((a, b) => new Date(a.date) - new Date(b.date));
-    //         setRows(logs.data);
-    //     }
-    //     FetchApi();
-    // }, [status, userForm]);
+            setRows(logs.data);
+        }
+        FetchApi();
+    }, [status, userForm]);
 
     useEffect(() => {
         async function FetchApiCheck() {
@@ -150,15 +136,10 @@ const ManageTask = () => {
 
             }
 
-
-            // Combine data from all APIs into a single array
-            // const combinedArray = [...api1Data, ...api2Data, ...api3Data, ...api4Data];
-
-            // Sort the combined array by date
-            // combinedArray.sort((a, b) => new Date(a.date) - new Date(b.date));
             setRows(logs.data);
         }
-        FetchApiCheck();
+        if (!(user.role == 'user'))
+            FetchApiCheck();
     }, [status, userForm]);
 
     return <>

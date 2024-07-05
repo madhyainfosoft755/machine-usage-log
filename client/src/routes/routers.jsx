@@ -14,6 +14,7 @@ import Employees from '../pages/employees/employees';
 import ManageTask from '../pages/manage-task/manage-task';
 import AddLog from '../pages/add-log/add-log';
 import Shifts from '../pages/shifts/shifts';
+import AuditTrail from '../pages/audit-trail/audit-trail';
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
@@ -36,6 +37,7 @@ export const router = createBrowserRouter(
                 <Route path='todo' element={<ToDo />} />
                 <Route path='machine-logs' element={<ManageTask />} />
                 <Route path='add-log' element={<AddLog />} />
+                <Route path='trail' element={<AuditTrail />} />
             </Route>
         </Route>
     ),
